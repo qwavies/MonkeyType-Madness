@@ -67,5 +67,5 @@ function markChallengeCompleted(wpm) {
 // Start monitoring when the page loads
 window.addEventListener('load', () => {
   console.log("Page loaded");
-    findWPM();
+  findWPM();
 });

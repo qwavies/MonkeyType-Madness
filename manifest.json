@@ -6,7 +6,8 @@
     "permissions": [
       "tabs",
       "storage",
-      "webNavigation"
+      "webNavigation",
+      "sessions"
     ],
     "host_permissions": ["https://monkeytype.com/"],
     "background": {

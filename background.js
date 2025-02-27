@@ -1,11 +1,19 @@
 chrome.runtime.onInstalled.addListener(() => {
     console.log("Extension installed, setting up challenge");
-    chrome.storage.local.set({ 
+    chrome.storage.session.set({ 
       challengeCompleted: false,
       challengeStarted: true
     });
   });
   
+  chrome.runtime.onStartup.addListener(() => {
+  console.log("Browser started, resetting challenge for new session");
+  chrome.storage.session.set({ 
+    challengeCompleted: false,
+    challengeStarted: true
+  });
+});
+
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete' && tab.url) {
       if (tab.url.includes('monkeytype.com') || 
@@ -14,7 +22,7 @@ chrome.runtime.onInstalled.addListener(() => {
             return;
           }
       
-      chrome.storage.local.get(['challengeCompleted'], (result) => {
+      chrome.storage.session.get(['challengeCompleted'], (result) => {
         if (result.challengeCompleted !== true) {
           console.log("Redirecting tab to MonkeyType:", tabId);
           chrome.tabs.update(tabId, { url: 'https://monkeytype.com/' });
