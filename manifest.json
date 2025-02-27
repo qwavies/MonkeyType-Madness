@@ -3,10 +3,21 @@
     "description": "A chrome extension to force you to use monkeytype before browsing the web",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["tabs"],
+    "permissions": [
+      "tabs",
+      "storage",
+      "webNavigation"
+    ],
+    "host_permissions": ["https://monkeytype.com/"],
     "background": {
       "service_worker": "background.js"
     },
+    "content_scripts": [
+      {
+        "matches": ["https://monkeytype.com/*"],
+        "js": ["monkeytype-detector.js"]
+      }
+    ],
     "icons": {
       "16": "images/icon-16.png",
       "32": "images/icon-32.png",
